@@ -24,6 +24,7 @@ namespace MotorDepot.DAL.Entities
         public DriverLicenseType DriverLicenseType { get; set; }
         public DateTime IssueDate { get; set; }
         public String IssuedBy { get; set; }
+        public Driver Driver { get; set; }
     }
 
     public enum Gender

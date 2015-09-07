@@ -19,7 +19,6 @@ namespace MotorDepot.DAL.Entities
 
     public class Dimensions
     {
-        public Int32 Id { get; set; }
         public Double Length { get; set; }
         public Double Width { get; set; }
         public Double Height { get; set; }

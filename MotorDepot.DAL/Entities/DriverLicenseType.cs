@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace MotorDepot.DAL.Entities
 {
-    class DriverLicenseType
+    public class DriverLicenseType : EntityBase
     {
+        public String Name { get; set; }
+        public String Description { get; set; }
     }
 }

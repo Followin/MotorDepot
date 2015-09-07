@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace MotorDepot.DAL.Entities
 {
-    class Role
+    public class Role : EntityBase
     {
+        public String Name { get; set; }
+        public ICollection<User> Users { get; set; } 
     }
 }

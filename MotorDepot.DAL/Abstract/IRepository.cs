@@ -12,7 +12,7 @@ namespace MotorDepot.DAL.Abstract
         T Get(Int32 id);
         IEnumerable<T> Find(Func<T, Boolean> predicate);
         void Create(T item);
-        void Remove(T item);
+        void Remove(Int32 id);
         void Update(T item);
 
     }

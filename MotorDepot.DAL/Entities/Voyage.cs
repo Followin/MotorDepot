@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MotorDepot.DAL.Entities
 {
-    public class Voyage
+    public class Voyage : EntityBase
     {
         public String Name { get; set; }
         public String Description { get; set; }
@@ -29,7 +29,6 @@ namespace MotorDepot.DAL.Entities
 
     public class VoyageLifeCycle
     {
-        public Int32 Id { get; set; }
         public DateTime? Opened { get; set; }
         public DateTime? Acceped { get; set; }
         public DateTime? ProcessingStart { get; set; }
