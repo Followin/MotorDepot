@@ -7,7 +7,7 @@ using MotorDepot.DAL.Entities;
 
 namespace MotorDepot.DAL.Abstract
 {
-    public interface IMotorDepotUnitOfWork
+    public interface IMotorDepotUnitOfWork : IDisposable
     {
         IRepository<Driver> Drivers { get; }
         IRepository<DriverLicense> DriverLicenses { get; }
@@ -19,6 +19,8 @@ namespace MotorDepot.DAL.Abstract
         IRepository<User> Users { get; }
         IRepository<Vehicle> Vehicles { get; }
         IRepository<VehicleClass> VehicleClasses { get; }
-        IRepository<Voyage> Voyages { get; } 
+        IRepository<Voyage> Voyages { get; }
+
+        void Save();
     }
 }

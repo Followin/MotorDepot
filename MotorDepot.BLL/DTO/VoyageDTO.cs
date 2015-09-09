@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MotorDepot.DAL.Entities;
 
-namespace MotorDepot.DAL.Entities
+namespace MotorDepot.BLL.DTO
 {
-    public class Voyage : EntityBase
+    public class VoyageDTO : EntityBase
     {
         public String Name { get; set; }
         public String Description { get; set; }
         public VoyageStatus Status { get; set; }
-        public VoyagePoint StartPoint { get; set; }
-        public VoyagePoint EndPoint { get; set; }
+        public VoyagePointDTO StartPoint { get; set; }
+        public VoyagePointDTO EndPoint { get; set; }
         public DateTime RequestedStartTime { get; set; }
         public DateTime RequestedEndTime { get; set; }
-        public Driver Driver { get; set; }
-        public Vehicle Vehicle { get; set; }
-        public VoyageLifeCycle LifeCycle { get; set; }
+        public DriverDTO Driver { get; set; }
+        public VehicleDTO Vehicle { get; set; }
+        public VoyageLifeCycleDTO LifeCycle { get; set; }
     }
 
     public enum VoyageStatus
@@ -29,7 +30,7 @@ namespace MotorDepot.DAL.Entities
         Canceled
     }
 
-    public class VoyageLifeCycle
+    public class VoyageLifeCycleDTO
     {
         public DateTime? Opened { get; set; }
         public DateTime? Acceped { get; set; }
@@ -38,10 +39,11 @@ namespace MotorDepot.DAL.Entities
         public DateTime? Canceled { get; set; }
     }
 
-    public class VoyagePoint
+    public class VoyagePointDTO
     {
         public String Name { get; set; }
         public Double Latitude { get; set; }
         public Double Longitude { get; set; }
     }
+    
 }

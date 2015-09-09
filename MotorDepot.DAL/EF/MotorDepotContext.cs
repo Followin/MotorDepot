@@ -21,7 +21,7 @@ namespace MotorDepot.DAL.EF
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Voyage> Voyages { get; set; }
         public DbSet<DriverVoyageRequest> DriverVoyageRequests { get; set; }
-        public DbSet<VehiclePreferences> VehiclePreferences { get; set; }
+        //public DbSet<VehiclePreferences> VehiclePreferences { get; set; }
 
 
         public MotorDepotContext(String connectionString) : base(connectionString)
