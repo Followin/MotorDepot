@@ -23,7 +23,6 @@ namespace MotorDepot.DAL.Repositories
             {
                 return
                     _db.DriverVoyageRequests.Include(x => x.Driver)
-                        .Include(x => x.VehiclePreferences)
                         .Include(x => x.Voyage)
                         .ToList();
             }

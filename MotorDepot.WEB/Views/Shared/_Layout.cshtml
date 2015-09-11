@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Cleauto</title>
+</head>
+    <body>
+        <div class="sidebar">
+            <input id="side-menu-open-button" type="checkbox"/>
+            <label for="side-menu-open-button"></label>
+            <nav>
+                <ul>
+                    <li><i class="fa fa-tasks"></i>@Html.ActionLink("Главная/Рейсы", "Index", "Voyage")</li>
+                    <li><i class="fa fa-users"></i>@Html.ActionLink("Пользователи/Водители", "Index", "Account")</li>
+                    <li><i class="fa fa-car"></i>@Html.ActionLink("Машины", "Index", "Vehicle")</li>
+                </ul>
+            </nav>
+        </div>
+        <div id="body-wrapper">
+            @RenderBody()
+        </div>
+    </body>
+</html>

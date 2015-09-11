@@ -14,7 +14,7 @@ namespace MotorDepot.BLL.Abstract
         ServiceResult AddVehicle(VehicleDTO vehicleDto);
         ServiceResult ModifyVehicle(VehicleDTO vehicleDto);
         ServiceResult DeleteVehicle(Int32 vehicleId);
-        Boolean IsVehicleFree(Int32 vehicleId, DateTime startTime, DateTime? endTime);
+        Boolean IsVehicleFree(Int32 vehicleId, DateTime startTime, DateTime? endTime = null);
         IEnumerable<VehicleDTO> GetVehicles();
         IEnumerable<VehicleDTO> GetVehicles(Func<VehicleDTO, Boolean> predicate);
         VehicleDTO GetVehicleInfo(Int32 vehicleId);

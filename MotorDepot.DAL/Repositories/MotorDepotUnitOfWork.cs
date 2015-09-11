@@ -79,7 +79,7 @@ namespace MotorDepot.DAL.Repositories
             get { return _userRepository ?? (_userRepository = new UserRepository(_db)); }
         }
 
-        public IRepository<Vehicle> Vehicles
+        public virtual IRepository<Vehicle> Vehicles
         {
             get { return _vehicleRepository ?? (_vehicleRepository = new VehicleRepository(_db)); }
         }

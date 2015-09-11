@@ -18,7 +18,7 @@ namespace MotorDepot.DAL.EF
         public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<Drive> Drives { get; set; }
         public DbSet<VehicleClass> VehicleClasses { get; set; }
-        public DbSet<Vehicle> Vehicles { get; set; }
+        public virtual DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Voyage> Voyages { get; set; }
         public DbSet<DriverVoyageRequest> DriverVoyageRequests { get; set; }
         //public DbSet<VehiclePreferences> VehiclePreferences { get; set; }
@@ -42,6 +42,20 @@ namespace MotorDepot.DAL.EF
             modelBuilder.Entity<Driver>()
                 .HasRequired(x => x.DriverLicense)
                 .WithRequiredPrincipal(x => x.Driver);
+        }
+    }
+
+
+    public class Initializer : DropCreateDatabaseAlways<MotorDepotContext>
+    {
+        protected override void Seed(MotorDepotContext context)
+        {
+            context.Users.Add(new User
+            {
+                Nickname = "Admin",
+                Password = "ALxwUQXpYTEGg5sqkFb9pLfSp9fuPOTUXzS78ebvGaFOO1dgG6ZMJU5ydWZlVnMVLQ=="
+            });
+            context.SaveChanges();
         }
     }
 }

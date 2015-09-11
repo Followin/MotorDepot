@@ -10,6 +10,7 @@ using MotorDepot.BLL.Models;
 using MotorDepot.DAL.Abstract;
 using MotorDepot.DAL.Entities;
 using System.Data.Entity.Validation;
+using VoyageStatus = MotorDepot.DAL.Entities.VoyageStatus;
 
 namespace MotorDepot.BLL.Services
 {
@@ -25,9 +26,9 @@ namespace MotorDepot.BLL.Services
         {
             var result = new ServiceResult();
 
-            
-            if(vehicleDto.Drive == null)
-                result.Errors.Add(new PropertyMessagePair {PropertyName = "Drive", Message = "You gotta determine drive"});
+
+            if (vehicleDto.Drive == null)
+                result.Errors.Add(new PropertyMessagePair { PropertyName = "Drive", Message = "You gotta determine drive" });
             if (vehicleDto.Class == null)
                 result.Errors.Add(new PropertyMessagePair { PropertyName = "Class", Message = "You gotta determine vehicle class" });
             if (vehicleDto.Dimensions == null)
@@ -125,18 +126,29 @@ namespace MotorDepot.BLL.Services
             if (!endTime.HasValue)
             {
                 //searching for last car usage
-                var lastVoyageTime = _db.Voyages.Find(x => x.Vehicle == vehicle)
-                    .Max(x => x.RequestedEndTime)
-                    .AddHours(1);
-                if (lastVoyageTime < startTime)
-                    return true;
-                return false;
+                var voyages =
+                    _db.Voyages.Find(
+                        x =>
+                            x.EntryState == EntryState.Active && x.Status != VoyageStatus.Canceled &&
+                            x.Vehicle == vehicle);
+                if (voyages.Any())
+                {
+                    var lastVoyageTime = voyages
+                        .Max(x => x.RequestedEndTime)
+                        .AddHours(1);
+                    if (lastVoyageTime < startTime)
+                        return true;
+                    return false;
+                }
+                return true;
             }
 
             //searching for intersection
             var isFree =
                 !(_db.Voyages.Find(
-                    x => x.Vehicle == vehicle && x.RequestedEndTime.AddHours(1) > startTime && x.RequestedStartTime < endTime.Value).Any());
+                    x =>
+                        x.EntryState == EntryState.Active && x.Status != VoyageStatus.Canceled && x.Vehicle == vehicle &&
+                        x.RequestedEndTime.AddHours(1) > startTime && x.RequestedStartTime < endTime.Value).Any());
             return isFree;
 
 

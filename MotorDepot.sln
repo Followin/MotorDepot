@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorDepot.DAL", "MotorDepot.DAL\MotorDepot.DAL.csproj", "{A5C8833E-E012-4E61-AD2A-7CC717CA2CDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorDepot.BLL", "MotorDepot.BLL\MotorDepot.BLL.csproj", "{21B35E4A-BF7C-4BE3-8099-AAA4F27E4BDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorDepot.Tests", "MotorDepot.Tests\MotorDepot.Tests.csproj", "{DF34901F-428F-4CE6-82BD-A367556486FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorDepot.WEB", "MotorDepot.WEB\MotorDepot.WEB.csproj", "{0320E9B3-1150-4281-BD9B-AF3A4A88DC74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{A5C8833E-E012-4E61-AD2A-7CC717CA2CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5C8833E-E012-4E61-AD2A-7CC717CA2CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5C8833E-E012-4E61-AD2A-7CC717CA2CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21B35E4A-BF7C-4BE3-8099-AAA4F27E4BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B35E4A-BF7C-4BE3-8099-AAA4F27E4BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B35E4A-BF7C-4BE3-8099-AAA4F27E4BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B35E4A-BF7C-4BE3-8099-AAA4F27E4BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF34901F-428F-4CE6-82BD-A367556486FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF34901F-428F-4CE6-82BD-A367556486FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF34901F-428F-4CE6-82BD-A367556486FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF34901F-428F-4CE6-82BD-A367556486FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0320E9B3-1150-4281-BD9B-AF3A4A88DC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0320E9B3-1150-4281-BD9B-AF3A4A88DC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0320E9B3-1150-4281-BD9B-AF3A4A88DC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0320E9B3-1150-4281-BD9B-AF3A4A88DC74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

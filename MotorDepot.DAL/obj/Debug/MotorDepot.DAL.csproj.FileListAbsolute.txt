@@ -1,0 +1,10 @@
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\obj\Debug\MotorDepot.DAL.csprojResolveAssemblyReference.cache
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\bin\Debug\MotorDepot.DAL.dll.config
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\bin\Debug\MotorDepot.DAL.dll
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\bin\Debug\MotorDepot.DAL.pdb
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\bin\Debug\EntityFramework.dll
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\bin\Debug\EntityFramework.xml
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\obj\Debug\MotorDepot.DAL.dll
+E:\git\MotorDepot\MotorDepot\MotorDepot.DAL\obj\Debug\MotorDepot.DAL.pdb

@@ -8,6 +8,7 @@ namespace MotorDepot.DAL.Entities
 {
     public class DriverLicenseType
     {
+        public Int32 Id { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }
     }

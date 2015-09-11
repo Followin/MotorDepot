@@ -8,6 +8,7 @@ namespace MotorDepot.DAL.Entities
 {
     public class Drive : EntityBase
     {
+
         public String Name { get; set; }
         public Double Volume { get; set; }
         public VehicleDriveType DriveType { get; set; }

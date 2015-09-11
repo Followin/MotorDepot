@@ -30,7 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,9 +46,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Abstract\IMotorDepotUnitOfWork.cs" />
+    <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="EF\MotorDepotContext.cs" />
+    <Compile Include="Entities\Drive.cs" />
+    <Compile Include="Entities\Driver.cs" />
+    <Compile Include="Entities\DriverLicenseType.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Vehicle.cs" />
+    <Compile Include="Entities\VehicleClass.cs" />
+    <Compile Include="Entities\Voyage.cs" />
+    <Compile Include="Entities\DriverVoyageRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DriveRepository.cs" />
+    <Compile Include="Repositories\DriverLicenseRepository.cs" />
+    <Compile Include="Repositories\DriverLicenseTypeRepository.cs" />
+    <Compile Include="Repositories\DriverRepository.cs" />
+    <Compile Include="Repositories\DriverVoyageRequestRepository.cs" />
+    <Compile Include="Repositories\FuelTypeRepository.cs" />
+    <Compile Include="Repositories\MotorDepotUnitOfWork.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\VehicleClassRepository.cs" />
+    <Compile Include="Repositories\VehiclePreferencesRepository.cs" />
+    <Compile Include="Repositories\VehicleRepository.cs" />
+    <Compile Include="Repositories\VoyageRepository.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

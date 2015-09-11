@@ -6,6 +6,7 @@ namespace MotorDepot.DAL.Entities
 {
     public class Driver : EntityBase
     {
+
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public DriverLicense DriverLicense { get; set; }
