@@ -26,6 +26,11 @@ namespace MotorDepot.BLL.Abstract
         Int32? ValidateUser(String login, String password);
 
         UserDTO GetUserInfo(Int32 id);
-        ServiceResult ChangeRoleForUser(UserDTO userDto, RoleDTO roleDto);
+        IEnumerable<UserDTO> GetUsers();
+        ServiceResult ChangeRoleForUser(Int32 userId, Int32 roleId);
+        ServiceResult ConfirmUser(Int32 userId);
+        ServiceResult DeleteUser(Int32 userId);
+        Boolean IsUsernameFree(String username);
+        IEnumerable<RoleDTO> GetRoles();
     }
 }

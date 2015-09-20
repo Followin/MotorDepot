@@ -1,0 +1,26 @@
+﻿@model IEnumerable<MotorDepot.WEB.Models.DriverViewModel>
+
+<h1>Выберите водителя</h1>
+
+<button type="button" class="back-to-voyage" data-reload="false"><i class="fa fa-arrow-circle-o-left fa-4x"></i></button>
+@if (!Model.Any())
+{
+    
+    <p class="error">Заявок пока нет</p>
+}
+else
+{
+    <div class="form-group">
+        @foreach (var driver in Model)
+        {
+            <div class="driver-info">
+                <input type="radio" data-val="true" data-val-required="Необходимо выбрать водителя" name="driver" id="@driver.Id" value="@driver.Id" />
+                <label for="@driver.Id">@driver.LastName @driver.FirstName</label>
+                <p>Возраст: @(DateTime.Now.Year - @driver.BithDate.Year) лет</p>
+            </div>
+        }
+    </div>
+    <button type="button" class="action-button accept-request-button">Подтвердить</button>
+}
+
+

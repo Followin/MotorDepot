@@ -1,0 +1,45 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.Ajax.Utilities
+@model Enum
+
+@{
+    Func<object, String> GetDisplayName = o =>
+    {
+        var result = null as string;
+        var display = o.GetType()
+            .GetMember(o.ToString()).First()
+            .GetCustomAttributes(false)
+            .OfType<DisplayAttribute>()
+            .LastOrDefault();
+        if (display != null)
+        {
+            result = display.GetName();
+        }
+
+        return result ?? o.ToString();
+    };
+
+
+    var values = Enum.GetValues(ViewData.ModelMetadata.ModelType).Cast<object>()
+        .Select(v => new SelectListItem
+        {
+            Selected = v.Equals(Model),
+            Text = GetDisplayName(v),
+            Value = v.ToString()
+        });
+}
+
+
+@if (values.Count() <= 3)
+{
+    foreach (var value in values)
+    {
+        @Html.RadioButton("", value.Value, value.Selected, new { id = value.Value })
+        @Html.Label(value.Text, new { @for = value.Value })
+    }
+    <br />
+}
+else
+{
+    Html.DropDownList("", values);
+}

@@ -11,11 +11,16 @@ namespace MotorDepot.DAL.Entities
     public class Vehicle : EntityBase
     {
         public String Name { get; set; }
-        public VehicleClass Class { get; set; }
         public Int32 SeatsNumber { get; set; }
         public Dimensions Dimensions { get; set; }
+
+        public Int32 VehicleClassId { get; set; }
+        public VehicleClass Class { get; set; }
+
+        public Int32 DriveId { get; set; }
         public Drive Drive { get; set; }
 
+        public Image Photo { get; set; }
     }
 
     public class Dimensions

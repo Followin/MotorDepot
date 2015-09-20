@@ -7,7 +7,7 @@ using MotorDepot.DAL.Entities;
 
 namespace MotorDepot.BLL.DTO
 {
-    public class VehicleClassDTO : EntityBase
+    public class VehicleClassDTO : EntityBaseDTO
     {
         public String Name { get; set; }
         public String Description { get; set; }

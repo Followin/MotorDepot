@@ -18,8 +18,8 @@ namespace MotorDepot.BLL.Utils
             Mapper.CreateMap<DimensionsDTO, Dimensions>();
             Mapper.CreateMap<DriveDTO, Drive>();
             Mapper.CreateMap<DriverDTO, Driver>();
-            Mapper.CreateMap<DriverLicenseDTO, DriverLicense>();
-            Mapper.CreateMap<DriverLicenseTypeDTO, DriverLicenseType>();
+            Mapper.CreateMap<DriverLicenseDTO, DriverLicense>()
+                .ForMember(x => x.VehicleClasses, _ => _.Ignore());
             Mapper.CreateMap<FuelTypeDTO, FuelType>();
             Mapper.CreateMap<RoleDTO, Role>();
             Mapper.CreateMap<UserDTO, User>();
@@ -29,12 +29,13 @@ namespace MotorDepot.BLL.Utils
             Mapper.CreateMap<VoyageLifeCycleDTO, VoyageLifeCycle>();
             Mapper.CreateMap<VoyagePointDTO, VoyagePoint>();
             Mapper.CreateMap<DriverVoyageRequestDTO, DriverVoyageRequest>();
+            Mapper.CreateMap<ImageDTO, Image>();
 
             Mapper.CreateMap<Dimensions, DimensionsDTO>();
             Mapper.CreateMap<Drive, DriveDTO>();
             Mapper.CreateMap<Driver, DriverDTO>();
-            Mapper.CreateMap<DriverLicense, DriverLicenseDTO>();
-            Mapper.CreateMap<DriverLicenseType, DriverLicenseTypeDTO>();
+            Mapper.CreateMap<DriverLicense, DriverLicenseDTO>()
+                .ForMember(x => x.VehicleClassIds, _ => _.MapFrom(x => x.VehicleClasses.Select(vClass => vClass.Id)));
             Mapper.CreateMap<FuelType, FuelTypeDTO>();
             Mapper.CreateMap<Role, RoleDTO>();
             Mapper.CreateMap<User, UserDTO>();
@@ -44,6 +45,7 @@ namespace MotorDepot.BLL.Utils
             Mapper.CreateMap<VoyageLifeCycle, VoyageLifeCycleDTO>();
             Mapper.CreateMap<VoyagePoint, VoyagePointDTO>();
             Mapper.CreateMap<DriverVoyageRequest, DriverVoyageRequestDTO>();
+            Mapper.CreateMap<Image, ImageDTO>();
         }
 
         public override string ProfileName

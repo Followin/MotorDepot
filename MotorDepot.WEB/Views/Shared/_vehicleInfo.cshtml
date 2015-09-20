@@ -1,0 +1,10 @@
+﻿@model MotorDepot.WEB.Models.VehicleViewModel
+           
+<img src="data:@Model.Photo.Type;base64, @Convert.ToBase64String(Model.Photo.Bytes)" alt="@Model.Name"/>
+<div class="info">
+    <input type="hidden" class="model_id" value="@Model.Id"/>
+    <h2>@Model.Name</h2>
+    <h3>Категория: @Model.Class.Name (@Model.Class.Description)</h3>
+    <button type="button" class="vehicle-controll-button more-info-button"><i class="fa fa-info"></i> Подробнее</button>
+</div>
+<div class="clear"></div>

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Services.Protocols;
 using MotorDepot.BLL.Abstract;
 using MotorDepot.BLL.Services;
+using MotorDepot.WEB.Abstract;
+using MotorDepot.WEB.Logics;
 using Ninject;
 
 namespace MotorDepot.WEB.Utils
@@ -36,6 +38,13 @@ namespace MotorDepot.WEB.Utils
             kernel.Bind<IAuthService>().To<AuthService>();
             kernel.Bind<IVehicleService>().To<VehicleService>();
             kernel.Bind<IVoyageService>().To<VoyageService>();
+
+            kernel.Bind<IAccountLogics>().To<AccountLogics>();
+            kernel.Bind<IControllersLogics>().To<ControllersLogics>();
+            kernel.Bind<IVehiclesLogics>().To<VehicleLogics>();
+            kernel.Bind<IVoyageLogics>().To<VoyageLogics>();
+
+
         }
 
         

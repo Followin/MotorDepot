@@ -1,0 +1,118 @@
+﻿@model MotorDepot.WEB.Models.CreateVehicleViewModel
+@{
+    ViewBag.Title = "AddVehicle";
+}
+
+@using (Html.BeginForm("Create", "Vehicle", FormMethod.Post, new {@class = "ms-form", enctype="multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <fieldset class="paper-block">
+        <h1>Добавить автомобиль</h1>
+        <h2 class="fs-title">Основные данные</h2>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Name)
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.VehicleClassId)
+            @Html.DropDownListFor(x => x.VehicleClassId, (IEnumerable<SelectListItem>)ViewBag.VehicleClasses)
+            @Html.ValidationMessageFor(x => x.VehicleClassId)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.SeatsNumber)
+            @Html.EditorFor(x => x.SeatsNumber)
+            @Html.ValidationMessageFor(x => x.SeatsNumber)
+        </div>
+        
+        <h3 class="fs-subtitle">Габариты</h3>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Dimensions.Height)
+            @Html.EditorFor(x => x.Dimensions.Height)
+            @Html.ValidationMessageFor(x => x.Dimensions.Height)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Dimensions.Length)
+            @Html.EditorFor(x => x.Dimensions.Length)
+            @Html.ValidationMessageFor(x => x.Dimensions.Length)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Dimensions.Width)
+            @Html.EditorFor(x => x.Dimensions.Width)
+            @Html.ValidationMessageFor(x => x.Dimensions.Width)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Photo)
+            @Html.EditorFor(x => x.Photo)
+            @Html.ValidationMessageFor(x => x.Photo)
+        </div>
+
+        <div class="form-buttons">
+            <button type="button" class="action-button next">Далее</button>
+        </div>
+    </fieldset>
+    <fieldset class="paper-block">
+        <h1>Добавить автомобиль</h1>
+        <h2 class="fs-title">Данные двигателя</h2>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Drive.Name)
+            @Html.EditorFor(x => x.Drive.Name)
+            @Html.ValidationMessageFor(x => x.Drive.Name)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Drive.DriveType)
+            @Html.EditorFor(x => x.Drive.DriveType)
+            @Html.ValidationMessageFor(x => x.Drive.DriveType)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Drive.FuelTypeId)
+            @Html.DropDownListFor(x => x.Drive.FuelTypeId, (IEnumerable<SelectListItem>)ViewBag.FuelTypes)
+            @Html.ValidationMessageFor(x => x.Drive.FuelTypeId)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Drive.Volume)
+            @Html.EditorFor(x => x.Drive.Volume)
+            @Html.ValidationMessageFor(x => x.Drive.Volume)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Drive.CylindersNumber)
+            @Html.EditorFor(x => x.Drive.CylindersNumber)
+            @Html.ValidationMessageFor(x => x.Drive.CylindersNumber)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Drive.MaxSpeed)
+            @Html.EditorFor(x => x.Drive.MaxSpeed)
+            @Html.ValidationMessageFor(x => x.Drive.MaxSpeed)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.Drive.AccelerationTime)
+            @Html.EditorFor(x => x.Drive.AccelerationTime)
+            @Html.ValidationMessageFor(x => x.Drive.AccelerationTime)
+        </div>
+        
+        <div class="form-buttons">
+            <button type="button" class="action-button previous">Назад</button>
+            <input type="submit" value="Отправить" class="action-button submit" />
+        </div>
+    </fieldset>
+}
+
+@section scripts {
+    @Scripts.Render("~/Scripts/formScripts")
+}

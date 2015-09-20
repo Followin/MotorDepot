@@ -1,0 +1,18 @@
+﻿@model IEnumerable<MotorDepot.WEB.Models.VehicleViewModel>
+
+
+@if (!Model.Any())
+{
+    <p class="error">Машин на данное время не найдено. Измените время или добавьте в базу машин</p>
+}
+
+@foreach (var vehicleInfo in Model)
+{
+    <div class="form-group select-car">
+        <input type="radio" name="VehicleId" id="@vehicleInfo.Id" value="@vehicleInfo.Id" />
+        <label for="@vehicleInfo.Id"></label>
+        <div class="vehicle-info">
+            @Html.Partial("~/Views/Shared/_vehicleInfo.cshtml", vehicleInfo)
+        </div>
+    </div>
+}

@@ -1,0 +1,29 @@
+﻿@using System.ComponentModel.DataAnnotations
+@{
+    var validationRules = new Dictionary<String, String>();
+    if (ViewData.ModelMetadata.IsRequired)
+    {
+        var attributes = ViewData.ModelMetadata.ContainerType.GetProperty(ViewData.ModelMetadata.PropertyName)
+            .GetCustomAttributes(false);
+        
+        var requiredAttribute = attributes
+            .OfType<RequiredAttribute>()
+            .LastOrDefault();
+        var displayAttribute = attributes
+            .OfType<DisplayAttribute>()
+            .LastOrDefault();
+        String displayName = ViewData.ModelMetadata.PropertyName;
+        if (displayAttribute != null)
+        {
+            displayName = displayAttribute.GetName();
+        }
+        if (requiredAttribute != null)
+        {
+            validationRules.Add("data-val-required", requiredAttribute.ErrorMessage ?? "Требуется поле " + displayName);
+        }
+        
+    }
+}
+
+<input type="file" name="@ViewData.ModelMetadata.PropertyName" data-val="@ViewData.ModelMetadata.IsRequired.ToString().ToLowerInvariant()" 
+       data-val-required="@(validationRules.ContainsKey("data-val-required")?validationRules["data-val-required"]:"")"/>

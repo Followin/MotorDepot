@@ -1,0 +1,17 @@
+﻿@model IEnumerable<MotorDepot.WEB.Models.VoyageViewModel>
+           
+@foreach (var voyage in Model)
+{
+
+    <div class="paper-block voyage-info">
+        @if (User.IsInRole("Admin") || User.IsInRole("Controller"))
+        {
+            @Html.Partial("_adminVoyageInfo", voyage)
+        }
+        @if (User.IsInRole("Driver"))
+        {
+            @Html.Partial("_driverVoyageInfo", voyage)
+        }
+
+    </div>
+}

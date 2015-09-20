@@ -1,0 +1,8 @@
+﻿@model IEnumerable<MotorDepot.WEB.Models.VoyageViewModel>
+@foreach (var voyage in Model)
+{
+
+    <div class="paper-block voyage-info">
+        @Html.Partial("_driverOwnVoyageInfo", voyage)
+    </div>
+}

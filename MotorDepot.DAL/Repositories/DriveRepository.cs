@@ -19,7 +19,7 @@ namespace MotorDepot.DAL.Repositories
 
         private IEnumerable<Drive> Drives
         {
-            get { return _db.Drives.Include(x => x.DriveType).Include(x => x.Fuel).ToList(); }
+            get { return _db.Drives.AsNoTracking().Include(x => x.DriveType).Include(x => x.FuelType).ToList(); }
         } 
         public IEnumerable<Drive> GetAll()
         {

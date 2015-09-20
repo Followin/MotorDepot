@@ -12,7 +12,10 @@ namespace MotorDepot.DAL.Entities
         public String Name { get; set; }
         public Double Volume { get; set; }
         public VehicleDriveType DriveType { get; set; }
-        public FuelType Fuel { get; set; }
+
+        public Int32 FuelTypeId { get; set; }
+        public FuelType FuelType { get; set; }
+
         public Int32 CylindersNumber { get; set; }
         public Int32 MaxSpeed { get; set; }
         public Double AccelerationTime { get; set; }

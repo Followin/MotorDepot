@@ -1,24 +1,95 @@
-﻿<!DOCTYPE html>
+﻿@using System.Collections
+@using MotorDepot.WEB.Models
+<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - Cleauto</title>
+    @Styles.Render("~/Content/css")
 </head>
-    <body>
-        <div class="sidebar">
-            <input id="side-menu-open-button" type="checkbox"/>
-            <label for="side-menu-open-button"></label>
-            <nav>
-                <ul>
-                    <li><i class="fa fa-tasks"></i>@Html.ActionLink("Главная/Рейсы", "Index", "Voyage")</li>
-                    <li><i class="fa fa-users"></i>@Html.ActionLink("Пользователи/Водители", "Index", "Account")</li>
-                    <li><i class="fa fa-car"></i>@Html.ActionLink("Машины", "Index", "Vehicle")</li>
-                </ul>
-            </nav>
-        </div>
+<body>
+    <div class="sidebar">
+        <input id="side-menu-open-button" type="checkbox" />
+        <label for="side-menu-open-button"></label>
+        <nav>
+            <ul class="accordeon">
+                <li>
+                    <h3><i class="fa fa-tasks"></i> Рейсы</h3>
+                    <ul>
+                        <li>@Html.ActionLink("Все рейсы", "Index", "Voyage")</li>
+                        @if (User.IsInRole("Driver"))
+                        {
+                            <li>@Html.ActionLink("Мои рейсы", "My", "Voyage")</li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Создать рейс", "Create", "Voyage")</li>
+                        }
+                    </ul>
+                </li>
+                <li>
+                    <h3><i class="fa fa-users"></i> Пользователи/Водители</h3>
+                    <ul>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Список", "Index", "Account")</li>
+                        }
+                        <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>
+                    </ul>
+                </li>
+                @if (User.IsInRole("Admin") || User.IsInRole("Controller"))
+                {
+                    <li>
+                        <h3><i class="fa fa-car"></i> Автомобили</h3>
+                        <ul>
+                            <li>@Html.ActionLink("Список", "Index", "Vehicle")</li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li>@Html.ActionLink("Добавить", "Create", "Vehicle")</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+    <div id="main-content">
+        <header>
+            <div class="header-wrapper">
+                <a href="/" class="logo">
+                    ase-auto
+                </a>
+                <div class="login">
+                    @Html.Partial("_loginPartial")
+                </div>
+                <div class="clear"></div>
+            </div>
+        </header>
         <div id="body-wrapper">
             @RenderBody()
         </div>
-    </body>
+        <div class="temp-messages">
+            <button type="button" id="close-messages-button"><i class="fa fa-times fa-2x"></i></button>
+            @if (TempData.ContainsKey("TempMessages"))
+            {
+                foreach (var message in (IEnumerable<TempMessage>)TempData["TempMessages"])
+                {
+                    <div class="temp-message temp-message-@message.Type.ToString().ToLower()">
+                        @message.Message
+                        @if (message is LinkTempMessage)
+                        {
+                            var linkMessage = message as LinkTempMessage;
+                            <a href="@linkMessage.LinkHref">@linkMessage.LinkText</a>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    
+    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/layout")
+    @RenderSection("scripts", false)
+</body>
 </html>

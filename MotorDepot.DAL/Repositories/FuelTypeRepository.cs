@@ -21,7 +21,7 @@ namespace MotorDepot.DAL.Repositories
 
         private IEnumerable<FuelType> FuelTypes
         {
-            get { return _db.FuelTypes; }
+            get { return _db.FuelTypes.AsNoTracking(); }
         } 
 
         public IEnumerable<FuelType> GetAll()

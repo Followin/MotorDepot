@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MotorDepot.WEB.Models.VehicleViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="vehicles-list paper-block paper-block-full">
+    <h1 class="title">Автомобили</h1>
+    @foreach (var vehicleInfo in Model)
+    {
+        <div class="vehicle-info">
+            @Html.Partial("_vehicleInfo", vehicleInfo)
+        </div>
+    }
+
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/vehicleScripts")
+}

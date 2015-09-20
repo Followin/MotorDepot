@@ -19,7 +19,12 @@ namespace MotorDepot.DAL.Repositories
 
         private IEnumerable<Driver> Drivers
         {
-            get { return _db.Drivers.Include(x => x.DriverLicense).Include(x => x.User).ToList(); }
+            get { return _db.Drivers.AsNoTracking()
+                .Include(x => x.DriverLicense)
+                .Include(x => x.DriverLicense.VehicleClasses)
+                .Include(x => x.User)
+                .Include(x => x.Requests)
+                .ToList(); }
         } 
         public IEnumerable<Driver> GetAll()
         {

@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MotorDepot.BLL.DTO;
+using MotorDepot.BLL.Models;
 using MotorDepot.BLL.Services;
 using MotorDepot.DAL.Abstract;
 using MotorDepot.DAL.EF;
@@ -80,6 +81,68 @@ namespace MotorDepot.Tests
 
             //Assert
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void VehicleCreate_NoData()
+        {
+            //Arrange
+            var vehicle = new VehicleDTO { Name = "NewVehicle" };
+
+            var mockVehicleRep = new Mock<IRepository<Vehicle>>();
+
+            var mockUnit = new Mock<IMotorDepotUnitOfWork>();
+            mockUnit.Setup(x => x.Vehicles).Returns(mockVehicleRep.Object);
+
+            var service = new VehicleService(mockUnit.Object);
+
+            //Act
+            var result = service.AddVehicle(vehicle);
+
+            //Assert
+            Assert.AreEqual(result.Status, ServiceResultStatus.Error);
+            mockVehicleRep.Verify(x => x.Create(It.IsAny<Vehicle>()), Times.Never);
+        }
+
+        [TestMethod]
+        public void VehicleCreate_DataGiven()
+        {
+            //Arrange
+            var vehicle = new VehicleDTO
+            {
+                Name = "NewVehicle",
+                Drive = new DriveDTO
+                {
+                    Name = "SomeDrive"
+                },
+                VehicleClassId = 1,
+                Dimensions = new DimensionsDTO
+                {
+                    Height = 5,
+                    Length = 3,
+                    Width = 5
+                }
+            };
+
+            var mockVehicleRep = new Mock<IRepository<Vehicle>>();
+
+            var mockUnit = new Mock<IMotorDepotUnitOfWork>();
+            mockUnit.Setup(x => x.Vehicles).Returns(mockVehicleRep.Object);
+
+            Mapper.CreateMap<DimensionsDTO, Dimensions>();
+            Mapper.CreateMap<DriveDTO, Drive>();
+            Mapper.CreateMap<VehicleDTO, Vehicle>();
+
+            var service = new VehicleService(mockUnit.Object);
+
+
+            //Act
+            var result = service.AddVehicle(vehicle);
+
+            //Assert
+            Assert.AreEqual(result.Status, ServiceResultStatus.Success);
+            mockVehicleRep.Verify(x => x.Create(It.IsAny<Vehicle>()), Times.Once);
+
         }
 
 

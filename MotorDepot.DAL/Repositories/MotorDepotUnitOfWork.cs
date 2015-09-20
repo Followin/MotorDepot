@@ -14,7 +14,6 @@ namespace MotorDepot.DAL.Repositories
         private MotorDepotContext _db;
         private DriveRepository _driveRepository;
         private DriverLicenseRepository _driverLicenseRepository;
-        private DriverLicenseTypeRepository _driverLicenseTypeRepository;
         private DriverRepository _driverRepository;
         private DriverVoyageRequestRepository _driverVoyageRequestRepository;
         private FuelTypeRepository _fuelTypeRepository;
@@ -41,14 +40,7 @@ namespace MotorDepot.DAL.Repositories
             get { return _driverLicenseRepository ?? (_driverLicenseRepository = new DriverLicenseRepository(_db)); }
         }
 
-        public IRepository<DriverLicenseType> DriverLicenseTypes
-        {
-            get
-            {
-                return _driverLicenseTypeRepository ??
-                       (_driverLicenseTypeRepository = new DriverLicenseTypeRepository(_db));
-            }
-        }
+        
 
         public IRepository<Drive> Drives
         {

@@ -62,8 +62,9 @@
     <Compile Include="DTO\DriveDTO.cs" />
     <Compile Include="DTO\DriverDTO.cs" />
     <Compile Include="DTO\DriverLicenseDTO.cs" />
-    <Compile Include="DTO\DriverLicenseTypeDTO.cs" />
     <Compile Include="DTO\DriverVoyageRequestTDO.cs" />
+    <Compile Include="DTO\EntityBaseDTO.cs" />
+    <Compile Include="DTO\ImageDTO.cs" />
     <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\VehicleClassDTO.cs" />

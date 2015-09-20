@@ -1,0 +1,100 @@
+﻿@model MotorDepot.WEB.Models.CreateVoyageViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Voyage", FormMethod.Post, new {@class="ms-form"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset class="paper-block">
+        
+        <h1>Добавление рейса - Шаг 1</h1>
+        <h2 class="fs-title">Основные данные</h2>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Name)
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Description)
+            @Html.EditorFor(x => x.Description)
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>
+
+        <div class="form-buttons">
+            <button type="button" class="action-button next">Далее</button>
+        </div>
+    </fieldset>
+    <fieldset class="paper-block">
+        <h1>Добавление рейса - Шаг 2</h1>
+        <h2 class="fs-title">Начальная точка</h2>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.StartPoint.Name)
+            @Html.EditorFor(x => x.StartPoint.Name)
+            @Html.ValidationMessageFor(x => x.StartPoint.Name)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.RequestedStartDate)
+            @Html.EditorFor(x => x.RequestedStartDate)
+            @Html.ValidationMessageFor(x => x.RequestedStartDate)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.RequestedStartTime)
+            @Html.EditorFor(x => x.RequestedStartTime)
+            @Html.ValidationMessageFor(x => x.RequestedStartTime)
+        </div>
+        
+        <div class="form-buttons">
+            <button type="button" class="action-button previous">Назад</button>
+            <button type="button" class="action-button next">Далее</button>
+        </div>
+    </fieldset>
+    <fieldset class="paper-block">
+        <h1>Добавление рейса - Шаг 3</h1>
+        <h2 class="fs-title">Конечная точка</h2>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.EndPoint.Name)
+            @Html.EditorFor(x => x.EndPoint.Name)
+            @Html.ValidationMessageFor(x => x.EndPoint.Name)
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(x => x.RequestedEndDate)
+            @Html.EditorFor(x => x.RequestedEndDate)
+            @Html.ValidationMessageFor(x => x.RequestedEndDate)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.RequestedEndTime)
+            @Html.EditorFor(x => x.RequestedEndTime)
+            @Html.ValidationMessageFor(x => x.RequestedEndTime)
+        </div>
+        
+        <div class="form-buttons">
+            <button type="button" class="action-button previous">Назад</button>
+            <button type="button" class="action-button next to-cars">Далее</button>
+        </div>
+    </fieldset>
+    <fieldset class="paper-block select-car">
+        <h1>Добавление рейса - Шаг 4</h1>
+        <h2 class="fs-title">Выбор машины</h2>
+        <div class="auto-chooser"></div>
+        <div class="form-buttons">
+            <button type="button" class="action-button previous">Назад</button>
+            <input type="submit" value="Добавить" class="action-button submit" />
+        </div>
+    </fieldset>
+}
+
+@section scripts {
+    @Scripts.Render("~/Scripts/formScripts")
+    @Scripts.Render("~/Scripts/vehicleScripts")
+}

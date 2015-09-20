@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,14 @@ namespace MotorDepot.BLL.Models
         public ServiceResult()
         {
             Errors = new List<PropertyMessagePair>();
+        }
+
+        public void Append(DbEntityValidationException exception)
+        {
+            foreach (var validationError in exception.EntityValidationErrors.SelectMany(entityValidationError => entityValidationError.ValidationErrors))
+            {
+                Errors.Add(new PropertyMessagePair { PropertyName = validationError.PropertyName, Message = validationError.ErrorMessage });
+            }
         }
     }
 

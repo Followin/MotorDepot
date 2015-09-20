@@ -19,7 +19,7 @@ namespace MotorDepot.DAL.Repositories
 
         private IEnumerable<Role> Roles
         {
-            get { return _db.Roles.Include(x => x.Users).ToList(); }
+            get { return _db.Roles.AsNoTracking().Include(x => x.Users).ToList(); }
         } 
 
         public IEnumerable<Role> GetAll()

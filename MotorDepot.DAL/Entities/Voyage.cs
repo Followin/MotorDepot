@@ -15,9 +15,16 @@ namespace MotorDepot.DAL.Entities
         public VoyagePoint EndPoint { get; set; }
         public DateTime RequestedStartTime { get; set; }
         public DateTime RequestedEndTime { get; set; }
+
+        public Int32? DriverId { get; set; }
         public Driver Driver { get; set; }
+
+        public Int32 VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
+
         public VoyageLifeCycle LifeCycle { get; set; }
+
+        public ICollection<DriverVoyageRequest> Requests { get; set; }
     }
 
     public enum VoyageStatus

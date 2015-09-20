@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using MotorDepot.BLL.Abstract;
 using MotorDepot.BLL.DTO;
 using MotorDepot.BLL.Models;
 using MotorDepot.DAL.Abstract;
-using MotorDepot.DAL.Entities;
 using System.Data.Entity.Validation;
-using VoyageStatus = MotorDepot.DAL.Entities.VoyageStatus;
+using MotorDepot.DAL.Entities;
+using EntryState = MotorDepot.DAL.Entities.EntryState;
 
 namespace MotorDepot.BLL.Services
 {
@@ -27,14 +25,15 @@ namespace MotorDepot.BLL.Services
             var result = new ServiceResult();
 
 
-            if (vehicleDto.Drive == null)
+            if (vehicleDto.Drive == null && vehicleDto.DriveId == 0)
                 result.Errors.Add(new PropertyMessagePair { PropertyName = "Drive", Message = "You gotta determine drive" });
-            if (vehicleDto.Class == null)
+            if (vehicleDto.Class == null && vehicleDto.VehicleClassId == 0)
                 result.Errors.Add(new PropertyMessagePair { PropertyName = "Class", Message = "You gotta determine vehicle class" });
             if (vehicleDto.Dimensions == null)
                 result.Errors.Add(new PropertyMessagePair { PropertyName = "Dimensions", Message = "You gotta determine vehicle dimensions" });
 
-            if (vehicleDto.Class != null && vehicleDto.Dimensions != null)
+            if ((vehicleDto.Class != null || vehicleDto.VehicleClassId != 0) 
+                && (vehicleDto.Drive != null || vehicleDto.DriveId != 0) &&vehicleDto.Dimensions != null)
             {
                 _db.Vehicles.Create(Mapper.Map<Vehicle>(vehicleDto));
                 _db.Save();
@@ -47,14 +46,16 @@ namespace MotorDepot.BLL.Services
         {
             var result = new ServiceResult();
 
-            if (vehicleDto.Drive == null)
+            if (vehicleDto.Drive == null && vehicleDto.DriveId == 0)
                 result.Errors.Add(new PropertyMessagePair { PropertyName = "Drive", Message = "You gotta determine drive" });
-            if (vehicleDto.Class == null)
+            if (vehicleDto.Class == null && vehicleDto.VehicleClassId == 0)
                 result.Errors.Add(new PropertyMessagePair { PropertyName = "Class", Message = "You gotta determine vehicle class" });
             if (vehicleDto.Dimensions == null)
                 result.Errors.Add(new PropertyMessagePair { PropertyName = "Dimensions", Message = "You gotta determine vehicle dimensions" });
 
-            if (vehicleDto.Class != null && vehicleDto.Dimensions != null)
+            if ((vehicleDto.Class != null || vehicleDto.VehicleClassId!=0) &&
+                (vehicleDto.Drive != null || vehicleDto.DriveId != 0) &&
+                vehicleDto.Dimensions != null)
             {
 
                 try
@@ -64,13 +65,7 @@ namespace MotorDepot.BLL.Services
                 }
                 catch (DbEntityValidationException ex)
                 {
-                    foreach (var entityValidationError in ex.EntityValidationErrors)
-                    {
-                        foreach (var validationError in entityValidationError.ValidationErrors)
-                        {
-                            result.Errors.Add(new PropertyMessagePair { PropertyName = validationError.PropertyName, Message = validationError.ErrorMessage });
-                        }
-                    }
+                    result.Append(ex);
                 }
             }
 
@@ -103,13 +98,7 @@ namespace MotorDepot.BLL.Services
             }
             catch (DbEntityValidationException ex)
             {
-                foreach (var entityValidationError in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in entityValidationError.ValidationErrors)
-                    {
-                        result.Errors.Add(new PropertyMessagePair { PropertyName = validationError.PropertyName, Message = validationError.ErrorMessage });
-                    }
-                }
+                result.Append(ex);
             }
 
             return result;
@@ -129,7 +118,7 @@ namespace MotorDepot.BLL.Services
                 var voyages =
                     _db.Voyages.Find(
                         x =>
-                            x.EntryState == EntryState.Active && x.Status != VoyageStatus.Canceled &&
+                            x.EntryState == EntryState.Active && x.Status != DAL.Entities.VoyageStatus.Canceled &&
                             x.Vehicle == vehicle);
                 if (voyages.Any())
                 {
@@ -147,7 +136,7 @@ namespace MotorDepot.BLL.Services
             var isFree =
                 !(_db.Voyages.Find(
                     x =>
-                        x.EntryState == EntryState.Active && x.Status != VoyageStatus.Canceled && x.Vehicle == vehicle &&
+                        x.EntryState == EntryState.Active && x.Status != DAL.Entities.VoyageStatus.Canceled && x.Vehicle == vehicle &&
                         x.RequestedEndTime.AddHours(1) > startTime && x.RequestedStartTime < endTime.Value).Any());
             return isFree;
 
@@ -159,6 +148,12 @@ namespace MotorDepot.BLL.Services
             return Mapper.Map<IEnumerable<Vehicle>, List<VehicleDTO>>(_db.Vehicles.Find(x => x.EntryState == EntryState.Active));
         }
 
+        public IEnumerable<VehicleDTO> GetFreeVehicles(DateTime startTime, DateTime? endTime = null)
+        {
+            var vehicles = _db.Vehicles.Find(x => x.EntryState == EntryState.Active).Where(x => IsVehicleFree(x.Id, startTime, endTime));
+            return Mapper.Map<IEnumerable<Vehicle>, List<VehicleDTO>>(vehicles);
+        }
+
         public IEnumerable<VehicleDTO> GetVehicles(Func<VehicleDTO, bool> predicate)
         {
             throw new NotImplementedException();
@@ -168,6 +163,38 @@ namespace MotorDepot.BLL.Services
         {
             return Mapper.Map<Vehicle, VehicleDTO>(_db.Vehicles.Get(vehicleId));
 
+        }
+
+        public IEnumerable<VehicleClassDTO> GetVehicleClasses()
+        {
+            return Mapper.Map<IEnumerable<VehicleClass>, List<VehicleClassDTO>>(_db.VehicleClasses.Find(x => x.EntryState == EntryState.Active));
+        }
+
+        public VehicleClassDTO GetVehicleClassInfo(int id)
+        {
+            return Mapper.Map<VehicleClassDTO>(_db.VehicleClasses.Get(id));
+        }
+
+        public IEnumerable<FuelTypeDTO> GetFuelTypes()
+        {
+            return Mapper.Map<IEnumerable<FuelType>, List<FuelTypeDTO>>(_db.FuelTypes.Find(x => x.EntryState == EntryState.Active));
+        }
+
+        public FuelTypeDTO GetFuelTypeInfo(int id)
+        {
+            return Mapper.Map<FuelTypeDTO>(_db.FuelTypes.Get(id));
+        }
+
+        public void RestoreVehicle(int id)
+        {
+            var vehicle = _db.Vehicles.Get(id);
+
+            if (vehicle != null && vehicle.EntryState != EntryState.Active)
+            {
+                vehicle.EntryState = EntryState.Active;
+                _db.Vehicles.Update(vehicle);
+                _db.Save();
+            }
         }
     }
 }

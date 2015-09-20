@@ -1,0 +1,44 @@
+﻿@using System.Web.Script.Services
+@using MotorDepot.WEB.Models
+@model IEnumerable<MotorDepot.WEB.Models.UserViewModel>
+@{
+    ViewBag.Title = "Пользователи";
+}
+
+<div class="paper-block users-list">
+    <h1>Пользователи</h1>
+    <table class="users-table">
+        <thead>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Nickname)</td>
+                <td>@Html.DisplayNameFor(x => x.Email)</td>
+                <td>@Html.DisplayNameFor(x => x.Role)</td>
+                <td>@Html.DisplayNameFor(x => x.IsConfirmed)</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr class="clickable-row" data-href="@Url.Action("UserInfo", new { id = user.Id })">
+                    <td>@user.Nickname</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <div class="select-wrapper">
+                            <select class="role-select" data-user-id="@user.Id">
+                                @foreach (var role in (IEnumerable<RoleViewModel>)ViewBag.Roles)
+                                {
+                                    <option value="@role.Id" selected="@(user.Role.Id == role.Id)">@role.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </td>
+                    <td>@if(user.IsConfirmed) { <i class="fa fa-check"></i>}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/userScripts")
+}

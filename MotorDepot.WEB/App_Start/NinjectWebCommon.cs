@@ -44,7 +44,7 @@ namespace MotorDepot.WEB.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var modules = new INinjectModule[] {new ServiceModule("DefaultConnection")};
+            var modules = new INinjectModule[] {new ServiceModule("SqlServerMotorDepot")};
             var kernel = new StandardKernel(modules);
             try
             {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Helpers;
@@ -11,6 +13,7 @@ using MotorDepot.BLL.DTO;
 using MotorDepot.BLL.Models;
 using MotorDepot.DAL.Abstract;
 using MotorDepot.DAL.Entities;
+using EntryState = MotorDepot.DAL.Entities.EntryState;
 
 namespace MotorDepot.BLL.Services
 {
@@ -37,28 +40,32 @@ namespace MotorDepot.BLL.Services
 
             var user = Mapper.Map<User>(userDto);
 
-            if (user.Role == null)
+            if (user.Driver != null && user.Driver.DriverLicense != null)
+            {
+                user.Driver.DriverLicense.VehicleClasses = new Collection<VehicleClass>();
+                userDto.Driver.DriverLicense.VehicleClassIds
+                    .Select(x => _db.VehicleClasses.Get(x))
+                    .ToList()
+                    .ForEach(user.Driver.DriverLicense.VehicleClasses.Add);
+            }
+
+            if (user.Role == null || user.RoleId == 0)
             {
                 var driverRole = _db.Roles.Find(x => x.Name == "Driver").FirstOrDefault();
                 if (driverRole != null)
-                    user.Role = driverRole;
+                    user.RoleId = driverRole.Id;
             }
+
+            
 
             try
             {
-
                 _db.Users.Create(user);
                 _db.Save();
             }
             catch (DbEntityValidationException ex)
             {
-                foreach (var entityValidationError in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in entityValidationError.ValidationErrors)
-                    {
-                        result.Errors.Add(new PropertyMessagePair {PropertyName = validationError.PropertyName, Message = validationError.ErrorMessage });
-                    }
-                }
+                result.Append(ex);
             }
 
             return result;
@@ -66,7 +73,7 @@ namespace MotorDepot.BLL.Services
 
         public int? ValidateUser(string login, string password)
         {
-            var user = _db.Users.Find(_ => _.Nickname == login).FirstOrDefault();
+            var user = _db.Users.Find(_ => _.EntryState == EntryState.Active && _.IsConfirmed && _.Nickname == login).FirstOrDefault();
             if (user != null)
             {
                 var isValid = Crypto.VerifyHashedPassword(user.Password, password);
@@ -86,22 +93,30 @@ namespace MotorDepot.BLL.Services
             return null;
         }
 
+        public IEnumerable<UserDTO> GetUsers()
+        {
+            return Mapper.Map<List<UserDTO>>(_db.Users.Find(x => x.EntryState == EntryState.Active));
+        }
 
-        public ServiceResult ChangeRoleForUser(UserDTO userDto, RoleDTO roleDto)
+
+
+        public ServiceResult ChangeRoleForUser(Int32 userId, Int32 roleId)
         {
             var result = new ServiceResult();
 
-            var user = _db.Users.Get(userDto.Id);
-            var role = _db.Roles.Get(roleDto.Id);
+            var user = _db.Users.Get(userId);
+            var role = _db.Roles.Get(roleId);
 
             if (user == null)
-                result.Errors.Add(new PropertyMessagePair { PropertyName = "userDto", Message = "Such user doesn't exist in db" });
+                result.Errors.Add(new PropertyMessagePair { PropertyName = "userId", Message = "Such user doesn't exist in db" });
             if (role == null)
-                result.Errors.Add(new PropertyMessagePair { PropertyName = "roleDto", Message = "Such role doesn't exist in db" });
+                result.Errors.Add(new PropertyMessagePair { PropertyName = "roleId", Message = "Such role doesn't exist in db" });
 
             if (user == null || role == null) return result;
 
-            user.Role = role;
+            user.Role = null;
+            user.RoleId = role.Id;
+            
 
             try
             {
@@ -110,16 +125,71 @@ namespace MotorDepot.BLL.Services
             }
             catch (DbEntityValidationException ex)
             {
-                foreach (var entityValidationError in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in entityValidationError.ValidationErrors)
-                    {
-                        result.Errors.Add(new PropertyMessagePair { PropertyName = validationError.PropertyName, Message = validationError.ErrorMessage });
-                    }
-                }
+                result.Append(ex);
             }
 
             return result;
+        }
+
+        public ServiceResult ConfirmUser(int userId)
+        {
+            var result = new ServiceResult();
+
+            var user = _db.Users.Get(userId);
+            if (user == null)
+            {
+                result.Errors.Add(new PropertyMessagePair {PropertyName = "userId", Message = "There is no such user in db"});
+                return result;
+            }
+
+            try
+            {
+                user.IsConfirmed = true;
+                _db.Users.Update(user);
+                _db.Save();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                result.Append(ex);
+            }
+
+            return result;
+
+        }
+
+        public ServiceResult DeleteUser(int userId)
+        {
+            var result = new ServiceResult();
+
+            var user = _db.Users.Get(userId);
+            if (user == null)
+            {
+                result.Errors.Add(new PropertyMessagePair { PropertyName = "userId", Message = "There is no such user in db" });
+                return result;
+            }
+
+            try
+            {
+                user.EntryState = EntryState.Removed;
+                _db.Users.Update(user);
+                _db.Save();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                result.Append(ex);
+            }
+
+            return result;
+        }
+
+        public bool IsUsernameFree(string username)
+        {
+            return (!_db.Users.Find(x => x.Nickname == username).Any());
+        }
+
+        public IEnumerable<RoleDTO> GetRoles()
+        {
+            return Mapper.Map<List<RoleDTO>>(_db.Roles.Find(x => x.Name != "Admin"));
         }
     }
 }

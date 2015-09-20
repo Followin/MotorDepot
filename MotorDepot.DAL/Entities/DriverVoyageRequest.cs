@@ -9,7 +9,11 @@ namespace MotorDepot.DAL.Entities
     public class DriverVoyageRequest
     {
         public Int32 Id { get; set; }
+
+        public Int32 DriverId { get; set; }
         public Driver Driver { get; set; }
+
+        public Int32 VoyageId { get; set; }
         public Voyage Voyage { get; set; }
         //public VehiclePreferences VehiclePreferences { get; set; }
 

@@ -1,4 +1,3 @@
-E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\obj\Debug\MotorDepot.BLL.csprojResolveAssemblyReference.cache
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\MotorDepot.BLL.dll.config
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\MotorDepot.BLL.dll
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\MotorDepot.BLL.pdb
@@ -6,12 +5,13 @@ E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\AutoMapper.dll
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\EntityFramework.dll
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\EntityFramework.SqlServer.dll
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\MotorDepot.DAL.dll
+E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\Ninject.dll
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\System.Web.Helpers.dll
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\MotorDepot.DAL.pdb
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\AutoMapper.xml
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\EntityFramework.xml
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\EntityFramework.SqlServer.xml
+E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\Ninject.xml
+E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\obj\Debug\MotorDepot.BLL.csprojResolveAssemblyReference.cache
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\obj\Debug\MotorDepot.BLL.dll
 E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\obj\Debug\MotorDepot.BLL.pdb
-E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\Ninject.dll
-E:\git\MotorDepot\MotorDepot\MotorDepot.BLL\bin\Debug\Ninject.xml

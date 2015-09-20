@@ -11,6 +11,6 @@ namespace MotorDepot.BLL.DTO
     {
         public Int32 Id { get; set; }
         public String Name { get; set; }
-        public ICollection<User> Users { get; set; } 
+        public ICollection<UserDTO> Users { get; set; } 
     }
 }

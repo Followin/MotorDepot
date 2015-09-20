@@ -19,7 +19,14 @@ namespace MotorDepot.DAL.Repositories
 
         private IEnumerable<Voyage> Voyages
         {
-            get { return _db.Voyages.Include(x => x.Driver).Include(x => x.Vehicle).ToList(); }
+            get { return _db.Voyages.AsNoTracking()
+                .Include(x => x.Driver)
+                .Include(x => x.Vehicle)
+                .Include(x => x.Vehicle.Class)
+                .Include(x => x.Vehicle.Drive)
+                .Include(x => x.Driver)
+                .Include(x => x.Requests)
+                .ToList(); }
         }  
         public IEnumerable<Voyage> GetAll()
         {

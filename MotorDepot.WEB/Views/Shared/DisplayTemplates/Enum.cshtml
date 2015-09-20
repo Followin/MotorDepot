@@ -1,0 +1,21 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model Enum 
+           
+@{
+    Func<object, String> GetDisplayName = o =>
+    {
+        var result = null as string;
+        var display = o.GetType()
+                       .GetMember(o.ToString()).First()
+                       .GetCustomAttributes(false)
+                       .OfType<DisplayAttribute>()
+                       .LastOrDefault();
+        if (display != null)
+        {
+            result = display.GetName();
+        }
+
+        return result ?? o.ToString();
+    };
+}
+@GetDisplayName(Model)

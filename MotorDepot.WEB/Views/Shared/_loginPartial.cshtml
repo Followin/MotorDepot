@@ -1,0 +1,9 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <span>Добро пожаловать, @User.Identity.Name</span>
+    @Html.ActionLink("Выйти", "Logout", "Account")
+}
+else
+{
+    @Html.ActionLink("Войти", "Login", "Account")
+}

@@ -1,0 +1,55 @@
+﻿@using MotorDepot.WEB.Models
+@model MotorDepot.WEB.Models.VoyageViewModel
+
+
+<input type="hidden" name="voyageId" value="@Model.Id" />
+<div class="status">
+    @switch (Model.Status)
+    {
+        case VoyageStatus.Open:
+            <i class="fa fa-plus fa-2x"></i>
+            break;
+        case VoyageStatus.Accepted:
+        <i class="fa fa-plus-circle fa-2x"></i>
+            break;
+        case VoyageStatus.Processing:
+        <i class="fa fa-play fa-2x"></i>
+            break;
+        case VoyageStatus.Succeded:
+        <i class="fa fa-check fa-2x"></i>
+            break;
+        case VoyageStatus.Canceled:
+        <i class="fa fa-times fa-2x"></i>
+            break;
+    }
+</div>
+<h2>@Model.Name</h2>
+<h3 class="voyage-description">@Model.Description</h3>
+
+
+<div class="point-info">
+    <h3>@Html.DisplayNameFor(x => x.StartPoint) <i class="fa fa-map"></i></h3>
+    <p>@Model.StartPoint.Name</p>
+    <p><i class="fa fa-clock-o"></i> @Model.RequestedStartTime.ToString()</p>
+</div>
+
+<div class="point-info">
+    <h3>@Html.DisplayNameFor(x => x.EndPoint) <i class="fa fa-map"></i></h3>
+    <p>@Model.EndPoint.Name</p>
+    <p><i class="fa fa-clock-o"></i> @Model.RequestedEndTime.ToString()</p>
+</div>
+
+<div class="vehicle-info">
+    @Html.Partial("_vehicleInfo", Model.Vehicle)
+</div>
+
+<div class="driver">
+    @if (Model.Driver == null)
+    {
+        <a class="voyage-request" data-voyage-id="@Model.Id"> Подать заявку</a>
+    }
+    else
+    {
+        <span>@Model.Driver.LastName @Model.Driver.FirstName</span>
+    }
+</div>

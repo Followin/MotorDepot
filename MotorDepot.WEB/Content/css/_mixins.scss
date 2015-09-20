@@ -1,0 +1,73 @@
+﻿@mixin box-sizing($value...) {
+    -moz-box-sizing: $value;
+    -webkit-box-sizing: $value;
+    box-sizing: $value;
+}
+
+@mixin transition($value...) {
+    -moz-transition: $value;
+    -o-transition: $value;
+    -webkit-transition: $value;
+    transition: $value;
+}
+
+@mixin transform($value...) {
+    -moz-transform: $value;
+    -ms-transform: $value;
+    -o-transform: $value;
+    -webkit-transform: $value;
+    transform: $value;
+}
+
+@mixin box-shadow($value...) {
+    -webkit-box-shadow: $value;
+    -ms-box-shadow: $value;
+    box-shadow: $value;
+}
+
+@mixin border-radius($value...) {
+    -ms-border-radius: $value;
+    border-radius: $value;
+}
+
+@mixin linear-gradient($direction, $colors...) {
+    background-image: -webkit-linear-gradient($direction, $colors);
+    background-image: -moz-linear-gradient($direction, $colors);
+    background-image: -o-linear-gradient($direction, $colors);
+    background-image: linear-gradient($direction, $colors);
+}
+
+@mixin filter($value...) {
+    -webkit-filter: $value;
+    -moz-filter: $value;
+    -o-filter: $value;
+    -ms-filter: $value;
+    filter: $value;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@mixin animation($value...){
+    -webkit-animation: $value;
+    -moz-animation: $value;
+    -o-animation: $value;
+    animation: $value;
+}
+
+@mixin transform-style($value){
+    -webkit-transform-style: $value;
+    transform-style: $value;
+}

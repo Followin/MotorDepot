@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MotorDepot.WEB.Models.VoyageViewModel>
+@{
+    ViewBag.Title = "Мои рейсы";
+}
+
+
+<div class="voyages-wrapper">
+    @if (!Model.Any())
+    {
+        <div class="paper-block"><p class="error">Здесь рейсов нет</p></div>
+    }
+    else
+    {
+        <div class="paper-block filters-block" data-action="My">
+            <h1>Мои рейсы</h1>
+            Сортировать по:
+            <div class="select-wrapper">
+                @Html.DropDownList("order", (IEnumerable<SelectListItem>)ViewBag.OrdersSelectList, new { @class = "order-select" })
+            </div>
+            Статус:
+            <div class="select-wrapper">
+                @Html.DropDownList("status", (IEnumerable<SelectListItem>)ViewBag.StatusesSelectList, new { @class = "status-filter" })
+            </div>
+        </div>
+        <div class="voyages-list">
+            @Html.Partial("_myVoyageList", Model)
+        </div>
+    }
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/formScripts")
+    @Scripts.Render("~/Scripts/vehicleScripts")
+    @Scripts.Render("~/Scripts/voyageScripts")
+}

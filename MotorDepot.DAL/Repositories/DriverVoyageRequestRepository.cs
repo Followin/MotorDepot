@@ -22,11 +22,12 @@ namespace MotorDepot.DAL.Repositories
             get
             {
                 return
-                    _db.DriverVoyageRequests.Include(x => x.Driver)
+                    _db.DriverVoyageRequests.AsNoTracking()
+                        .Include(x => x.Driver)
                         .Include(x => x.Voyage)
                         .ToList();
             }
-        } 
+        }
 
         public IEnumerable<DriverVoyageRequest> GetAll()
         {

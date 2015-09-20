@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MotorDepot.DAL.Entities;
 
 namespace MotorDepot.BLL.DTO
 {
-    public class DriveDTO : EntityBase
+    public class DriveDTO : EntityBaseDTO
     {
         public String Name { get; set; }
         public Double Volume { get; set; }
         public VehicleDriveType DriveType { get; set; }
-        public FuelTypeDTO Fuel { get; set; }
+
+        public Int32 FuelTypeId { get; set; }
+        public FuelTypeDTO FuelType { get; set; }
+
+
         public Int32 CylindersNumber { get; set; }
         public Int32 MaxSpeed { get; set; }
         public Double AccelerationTime { get; set; }
@@ -25,7 +28,7 @@ namespace MotorDepot.BLL.DTO
         FrontWheel
     }
 
-    public class FuelTypeDTO : EntityBase
+    public class FuelTypeDTO : EntityBaseDTO
     {
         public String Name { get; set; }
     }

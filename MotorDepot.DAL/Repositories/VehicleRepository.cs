@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using MotorDepot.DAL.Abstract;
 using MotorDepot.DAL.EF;
 using MotorDepot.DAL.Entities;
@@ -19,7 +20,7 @@ namespace MotorDepot.DAL.Repositories
 
         private IEnumerable<Vehicle> Vehicles
         {
-            get { return _db.Vehicles.Include(x => x.Class).Include(x => x.Drive).ToList(); }
+            get { return _db.Vehicles.AsNoTracking().Include(x => x.Class).Include(x => x.Drive).Include(x => x.Drive.FuelType).ToList(); }
         } 
         public IEnumerable<Vehicle> GetAll()
         {

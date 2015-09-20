@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using MotorDepot.DAL.Abstract;
 using MotorDepot.DAL.EF;
 using MotorDepot.DAL.Entities;
@@ -19,7 +21,11 @@ namespace MotorDepot.DAL.Repositories
 
         private IEnumerable<User> Users
         {
-            get { return _db.Users.Include(x => x.Driver).Include(x => x.Role); }
+            get { return _db.Users.AsNoTracking()
+                .Include(x => x.Driver)
+                .Include(x => x.Driver.DriverLicense)
+                .Include(x => x.Driver.DriverLicense.VehicleClasses)
+                .Include(x => x.Role); }
         } 
         public IEnumerable<User> GetAll()
         {

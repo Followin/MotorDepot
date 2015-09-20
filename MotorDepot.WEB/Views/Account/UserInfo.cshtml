@@ -1,0 +1,33 @@
+﻿@model MotorDepot.WEB.Models.UserViewModel
+@{
+    ViewBag.Title = "Пользователь " + @Model.Nickname;
+}
+
+<div class="paper-block user-info">
+    <h1>@Model.Nickname <span class="email">(@Model.Email)</span></h1>
+
+    @if (Model.Driver != null)
+    {
+        <div class="driver-info">
+            <h2>Информация о водителе</h2>
+            <p>@Model.Driver.LastName @Model.Driver.FirstName</p>
+            <p>@Html.DisplayNameFor(x => x.Driver.Gender): @Html.DisplayFor(x => x.Driver.Gender)</p>
+            <p>@Html.DisplayNameFor(x => x.Driver.BithDate): @Html.DisplayFor(x => x.Driver.BithDate)</p>
+            <p>
+                @Html.DisplayNameFor(x => x.Driver.DriverLicense.VehicleClasses):
+                @foreach (var vehicleClass in Model.Driver.DriverLicense.VehicleClasses)
+                {
+                    <span class="vehicle-class-name">@vehicleClass.Name</span>
+                }
+            </p>
+        </div>
+    
+    }
+    @if (!Model.IsConfirmed)
+    {
+        <div class="confirm-buttons">
+            <a href="@Url.Action("Confirm", "Account", new {id=Model.Id})" class="confirm"><i class="fa fa-check"></i> Подтвердить</a>
+            <a href="@Url.Action("Refuse", "Account", new {id=Model.Id})" class="refuse"><i class="fa fa-ban"></i> Отказать</a>
+        </div>
+    }
+</div>

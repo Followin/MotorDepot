@@ -1,5 +1,34 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@using MotorDepot.WEB.Models
+@model IEnumerable<MotorDepot.WEB.Models.VoyageViewModel>
+@{
+    ViewBag.Title = "Voyages";
 }
 
-<h2>Index</h2>
+
+@if (!Model.Any())
+{
+    <div class="paper-block"><p class="error">Здесь рейсов нет</p></div>
+}
+else
+{
+    <div class="paper-block filters-block" data-action="Index">
+        <h1>Рейсы</h1>
+        Сортировать по:
+            <div class="select-wrapper">
+                @Html.DropDownList("order", (IEnumerable<SelectListItem>)ViewBag.OrdersSelectList, new {@class="order-select"})
+            </div>
+        Статус:
+        <div class="select-wrapper">
+            @Html.DropDownList("status", (IEnumerable<SelectListItem>)ViewBag.StatusesSelectList, new {@class="status-filter"})
+        </div>
+    </div>
+    <div class="voyages-list">
+        @Html.Partial("_voyagesList", Model)
+    </div>
+}
+
+@section scripts{
+    @Scripts.Render("~/Scripts/formScripts")
+    @Scripts.Render("~/Scripts/vehicleScripts")
+    @Scripts.Render("~/Scripts/voyageScripts")
+}

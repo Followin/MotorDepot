@@ -19,7 +19,7 @@ namespace MotorDepot.DAL.Repositories
 
         private IEnumerable<DriverLicense> DriverLicenses
         {
-            get { return _db.DriverLicenses.Include(x => x.DriverLicenseType).Include(x => x.Driver); }
+            get { return _db.DriverLicenses.AsNoTracking().Include(x => x.VehicleClasses); }
         } 
         public IEnumerable<DriverLicense> GetAll()
         {

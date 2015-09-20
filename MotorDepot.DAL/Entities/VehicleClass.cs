@@ -10,5 +10,7 @@ namespace MotorDepot.DAL.Entities
     {
         public String Name { get; set; }
         public String Description { get; set; }
+
+        public ICollection<DriverLicense> DriverLicenses { get; set; } 
     }
 }

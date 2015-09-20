@@ -1,0 +1,28 @@
+﻿@model MotorDepot.WEB.Models.VehicleViewModel
+
+
+    <img src="data:@Model.Photo.Type;base64, @Convert.ToBase64String(Model.Photo.Bytes)" alt="@Model.Name" />
+    <div class="info">
+        <input type="hidden" class="model_id" value="@Model.Id" />
+        <h2>@Model.Name</h2>
+        <h3>Категория: @Model.Class.Name (@Model.Class.Description)</h3>
+        <div class="additional-info">
+            <div class="float-left">
+                <h3 class="subtitle">Основная информация</h3>
+                <p>@Html.DisplayNameFor(x => x.SeatsNumber): @Model.SeatsNumber</p>
+                <p>@Html.DisplayNameFor(x => x.Dimensions.Height): @Model.Dimensions.Height</p>
+                <p>@Html.DisplayNameFor(x => x.Dimensions.Length): @Model.Dimensions.Length</p>
+                <p>@Html.DisplayNameFor(x => x.Dimensions.Width): @Model.Dimensions.Width</p>
+            </div>
+            <div class="drive-info">
+                <h3 class="subtitle">Двигатель</h3>
+                <p>@Html.DisplayNameFor(x => x.Drive.Name): @Model.Drive.Name</p>
+                <p>@Html.DisplayNameFor(x => x.Drive.DriveType): @Html.DisplayFor(x => x.Drive.DriveType)</p>
+                <p>@Html.DisplayNameFor(x => x.Drive.CylindersNumber): @Model.Drive.CylindersNumber</p>
+                <p>@Html.DisplayNameFor(x => x.Drive.FuelType): @Model.Drive.FuelType.Name</p>
+                <p>@Html.DisplayNameFor(x => x.Drive.Volume): @Model.Drive.Volume л.</p>
+                <p>@Html.DisplayNameFor(x => x.Drive.MaxSpeed): @Model.Drive.MaxSpeed км/ч</p>
+                <p>@Html.DisplayNameFor(x => x.Drive.AccelerationTime): @Model.Drive.AccelerationTime с</p>
+            </div>
+        </div>
+    </div>

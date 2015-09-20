@@ -11,7 +11,6 @@ namespace MotorDepot.DAL.Abstract
     {
         IRepository<Driver> Drivers { get; }
         IRepository<DriverLicense> DriverLicenses { get; }
-        IRepository<DriverLicenseType> DriverLicenseTypes { get; }
         IRepository<Drive> Drives { get; }
         IRepository<DriverVoyageRequest> DriverVoyageRequests { get; }
         IRepository<FuelType> FuelTypes { get; }

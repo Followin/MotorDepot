@@ -46,7 +46,18 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\microsoft-web-helpers.2.1.20710.2\lib\net40\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -58,6 +69,12 @@
     </Reference>
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC4.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.1.1\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Web">
+      <HintPath>..\packages\NLog.Web.2.0.0.0\lib\net35\NLog.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -131,18 +148,54 @@
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20505.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20505.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAccountLogics.cs" />
+    <Compile Include="Abstract\IControllersLogics.cs" />
+    <Compile Include="Abstract\IVehiclesLogics.cs" />
+    <Compile Include="Abstract\IVoyageLogics.cs" />
+    <Compile Include="App_GlobalResources\ValidationMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidationMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundlesConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Extensions\StreamExtensions.cs" />
+    <Compile Include="Filters\DateRangeAttribute.cs" />
+    <Compile Include="Filters\MoreThanNowAttribute.cs" />
+    <Compile Include="Logics\AccountLogics.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\VoyageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logics\ControllersLogics.cs" />
+    <Compile Include="Logics\VoyageLogics.cs" />
+    <Compile Include="Logics\VehicleLogics.cs" />
+    <Compile Include="Models\ImageViewModel.cs" />
+    <Compile Include="Models\InfoMessage.cs" />
+    <Compile Include="Models\LoginResponse.cs" />
+    <Compile Include="Models\UserViewModels.cs" />
+    <Compile Include="Models\VehicleViewModel.cs" />
+    <Compile Include="Models\VoyageSortOrders.cs" />
+    <Compile Include="Models\VoyageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\AutoMapperWebProfile.cs" />
+    <Compile Include="Utils\MyMetadataProvider.cs" />
+    <Compile Include="Utils\MyValidationProvider.cs" />
     <Compile Include="Utils\NinjectDependencyResolver.cs" />
+    <Compile Include="Utils\UserModelValidator.cs" />
+    <Compile Include="Utils\VoyageModelValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -150,8 +203,65 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\forms.css">
+      <DependentUpon>forms.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\css\forms.min.css">
+      <DependentUpon>forms.css</DependentUpon>
+    </Content>
+    <Content Include="Content\css\main.css">
+      <DependentUpon>main.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\css\main.min.css">
+      <DependentUpon>main.css</DependentUpon>
+    </Content>
+    <Content Include="Content\css\reset.css" />
+    <Content Include="Content\css\ripple-effect.css" />
+    <Content Include="Content\css\default.css" />
+    <Content Include="Content\css\default.date.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\forms.js">
+      <DependentUpon>forms.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\forms.min.js">
+      <DependentUpon>forms.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery.autogrow-textarea.js" />
+    <Content Include="Scripts\jquery.easing.min.js" />
+    <Content Include="Scripts\jquery.ripple-effect.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Layout.js">
+      <DependentUpon>layout.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Layout.min.js">
+      <DependentUpon>Layout.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\picker.date.js" />
+    <Content Include="Scripts\picker.js" />
+    <Content Include="Scripts\users.js">
+      <DependentUpon>users.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\users.min.js">
+      <DependentUpon>users.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\vehicles.js">
+      <DependentUpon>vehicles.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\vehicles.min.js">
+      <DependentUpon>vehicles.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\voyages.js">
+      <DependentUpon>voyages.coffee</DependentUpon>
+    </Content>
+    <Content Include="Scripts\voyages.min.js">
+      <DependentUpon>voyages.js</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -163,7 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -192,6 +301,184 @@
       <Project>{21b35e4a-bf7c-4be3-8099-aaa4f27e4bdd}</Project>
       <Name>MotorDepot.BLL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\main.css.map">
+      <DependentUpon>main.css</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\layout.coffee" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Layout.js.map">
+      <DependentUpon>Layout.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Layout.min.js.map">
+      <DependentUpon>Layout.min.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\orbitron-black.otf" />
+    <Content Include="Content\fonts\orbitron-bold.otf" />
+    <Content Include="Content\fonts\orbitron-light.otf" />
+    <Content Include="Content\fonts\orbitron-medium.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\Roboto-Bold.ttf" />
+    <Content Include="Content\fonts\Roboto-BoldItalic.ttf" />
+    <Content Include="Content\fonts\Roboto-Italic.ttf" />
+    <Content Include="Content\fonts\Roboto-Light.ttf" />
+    <Content Include="Content\fonts\Roboto-LightItalic.ttf" />
+    <Content Include="Content\fonts\Roboto-Medium.ttf" />
+    <Content Include="Content\fonts\Roboto-MediumItalic.ttf" />
+    <Content Include="Content\fonts\Roboto-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\_fonts.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\_mixins.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\_colors.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\forms.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\forms.css.map">
+      <DependentUpon>forms.css</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\forms.coffee" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\forms.js.map">
+      <DependentUpon>forms.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\forms.min.js.map">
+      <DependentUpon>forms.min.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
+      <DependentUpon>jquery.validate.unobtrusive.min.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Vehicle\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Voyage\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_loginPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\File.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_vehicleInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Vehicle\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_fullVehicleInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\vehicles.coffee" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\vehicles.js.map">
+      <DependentUpon>vehicles.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\vehicles.min.js.map">
+      <DependentUpon>vehicles.min.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_chooseAuto.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\voyages.coffee" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\voyages.js.map">
+      <DependentUpon>voyages.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\voyages.min.js.map">
+      <DependentUpon>voyages.min.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Voyage\_requestsList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Voyage\_voyageInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Vehicle\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Vehicle\_vehicleInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Voyage\_adminVoyageInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Voyage\_driverVoyageInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Voyage\My.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Voyage\_driverOwnVoyageInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NLog.config" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\UserInfo.cshtml" />
+    <Content Include="Scripts\users.coffee" />
+    <Content Include="Scripts\users.js.map">
+      <DependentUpon>users.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\users.min.js.map">
+      <DependentUpon>users.min.js</DependentUpon>
+    </Content>
+    <Content Include="Views\Voyage\_voyagesList.cshtml" />
+    <Content Include="Views\Voyage\_myVoyageList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ValidationMessages.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

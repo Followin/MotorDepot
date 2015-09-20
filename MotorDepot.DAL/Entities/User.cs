@@ -13,6 +13,8 @@ namespace MotorDepot.DAL.Entities
         public String Email { get; set; }
         public String ConfirmationToken { get; set; }
         public Boolean IsConfirmed { get; set; }
+
+        public Int32 RoleId { get; set; }
         public Role Role { get; set; }
 
         public Driver Driver { get; set; }
